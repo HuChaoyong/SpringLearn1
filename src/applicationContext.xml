@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!--
+        配置 bean
+        class: bean的全类名, 通过反射的方式在IOC容器中创建Bean,所以要求 Bean中必须有无参构造器
+        id: 标识容器中的Bean.  id 是唯一的
+    -->
+    <!--id 标识name-->
+    <!--这是属性注入-->
+    <bean id="helloWorld" class="com.hcyshmily.beans.HelloWorld">
+        <property name="name" value="Spring"></property>
+    </bean>
+
+
+    <!--通过构造方法来配置 Bean的属性-->
+    <!--使用构造器注入属性值可以指定参数的位置和参数的类型! 以区分重载的构造器-->
+    <bean id="car" class="com.hcyshmily.beans.Car">
+        <constructor-arg value="Audi" index="0"></constructor-arg>
+        <constructor-arg value="ShangHai" index="1"></constructor-arg>
+        <constructor-arg value="300000" type="double"></constructor-arg>
+    </bean>
+    <bean id="car2" class="com.hcyshmily.beans.Car">
+        <constructor-arg value="BMW"></constructor-arg>
+        <constructor-arg >
+            <!--用 <![CDATA[特殊字符]]> 来处理特殊字符-->
+            <value><![CDATA[<ShangHai^>]]></value>
+        </constructor-arg>
+        <constructor-arg type="int">
+            <value>248</value>
+        </constructor-arg>
+    </bean>
+
+    <bean id="person" class="com.hcyshmily.beans.Person">
+        <property name="name" value="Tom"></property>
+        <property name="age" value="24"></property>
+         <!--
+         这里的 car是对象,不能用value值类型,只能用指向的形式,
+         这个对象,可以是外部的, 该bean标签外的,
+         也可以是内部的,该bean标签内部创建的,叫内部bean
+         -->
+        <!--<property name="car" ref="car2"></property>-->
+        <!--以下方法为内部bean1-->
+        <property name="car">
+            <bean class="com.hcyshmily.beans.Car">
+                <constructor-arg value="Ford"></constructor-arg>
+                <constructor-arg value="ChangAn"></constructor-arg>
+                <constructor-arg value="200000" type="double"></constructor-arg>
+            </bean>
+        </property>
+        <!--或者写成标签-->
+        <!--<property name="car">
+            <ref bean="car2"></ref>
+        </property>-->
+    </bean>
+
+    <bean id="person2" class="com.hcyshmily.beans.Person">
+        <constructor-arg value="Jerry"></constructor-arg>
+        <constructor-arg value="25"></constructor-arg>
+        <!--<constructor-arg ref="car"></constructor-arg>-->
+        <!--测试赋值 null-->
+        <!--<constructor-arg><null/></constructor-arg>-->
+        <constructor-arg ref="car"></constructor-arg>
+        <!--
+        这里对 car里面的属性赋值,就是级联赋值, 要求,必须要有 setMaxSpeec方法才可以,
+        并且, 属性需要先初始化, 也就是 上面那行的  ref="car" ,否则,会出现 null 异常; 和 Struts2不同
+        -->
+        <property name="car.maxSpeed" value="300"></property>
+    </bean>
+
+    <bean id="car4" class="com.hcyshmily.beans.collections.Car">
+        <property name="corp" value="A444"></property>
+        <property name="brand" value="BB"></property>
+        <property name="price" value="300000"></property>
+    </bean>
+    <bean id="car5" class="com.hcyshmily.beans.collections.Car">
+        <property name="corp" value="A555"></property>
+        <property name="brand" value="BB"></property>
+        <property name="price" value="300000"></property>
+    </bean>
+
+    <bean id="person3" class="com.hcyshmily.beans.collections.Person">
+        <property name="name" value="Mike"></property>
+        <property name="age" value="23"></property>
+        <property name="cars">
+            <!--使用List节点,为 List属性赋值-->
+            <list>
+                <ref bean="car4"/>
+                <ref bean="car5"/>
+                <bean class="com.hcyshmily.beans.collections.Car">
+                    <property name="brand" value="BB"></property>
+                    <property name="corp" value="A666"></property>
+                    <property name="price" value="300000"></property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <!--配置 Map属性值的Bean-->
+    <bean id="newPerson" class="com.hcyshmily.beans.collections.NewPerson">
+        <property name="name" value="Rose"></property>
+        <property name="age" value="28"></property>
+        <property name="cars">
+            <map>
+                <entry key="AA" value-ref="car4"></entry>
+                <entry key="BB" value-ref="car5"></entry>
+            </map>
+        </property>
+     </bean>
+
+    <!--配置 Properties 属性值-->
+    <bean id="dataSource" class="com.hcyshmily.beans.collections.DataSource">
+        <property name="properties">
+            <!--使用 props 和 prop 子节点来为 Properties 属性赋值-->
+            <props>
+                <prop key="user">root</prop>
+                <prop key="password">1234</prop>
+                <prop key="jdbcUrl">jdbc:mysql://test</prop>
+                <prop key="driverClass">com.mysql.jdbc.Driver</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!--配置单例的集合Bean, 以供多个 Bean进行引用,  需要导入 util 命名空间 , 使用 util 将其独立出来 -->
+    <util:list id="cars">
+        <ref bean="car4" />
+    </util:list>
+
+    <bean id="person4" class="com.hcyshmily.beans.collections.Person">
+        <property name="name" value="Jack"></property>
+        <property name="age" value="29"></property>
+         <!--这里的 cars 就是引用上方的 cars util  list 中的-->
+        <property name="cars" ref="cars"></property>
+    </bean>
+
+    <!--通过 P命名空间为Bean的属性赋值, 需要先导入 P命名空间, 相对传统的方式,更加的简介-->
+    <bean id="person5" class="com.hcyshmily.beans.collections.Person"
+          p:age="30" p:name="Queen" p:cars-ref="cars">
+
+    </bean>
+</beans>
