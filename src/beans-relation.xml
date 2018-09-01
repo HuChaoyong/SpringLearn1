@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="address" class="com.hcyshmily.beans.autowire.Address"
+          p:city="BeiJing^" p:street="WuDaoKou"></bean>
+
+    <bean id="address2" class="com.hcyshmily.beans.autowire.Address"
+          p:city="BeiJing" p:street="DaZhongSi"></bean>
+
+
+    <!--
+        bean的继承, 使用 parent 属性
+        是只继承指定的同类型bean的属性, 然后,可以自己指定自己的特殊属性.
+
+        如果 bean被指定了 abstract 为 true, 则表示为抽象bean,不能被实例化,只能被继承
+
+        若某个class的属性没有指定, 则该bean必须是一个 抽象bean, abstract 必须设置为 true
+
+
+    -->
+
+    <bean id="car" class="com.hcyshmily.beans.autowire.Car"
+          p:brand="Audi" p:price="300000"></bean>
+
+
+    <!--
+    要求在配置 person时,必须有关联一个car! 也就是说person的 bean 依赖于 Car的 bean
+    如果 配置的 depends-on 中的car 的bean不存在,就会报错
+    如果要依赖多个 bean,可以用 空格, 逗号 分隔
+    -->
+    <bean id="person" class="com.hcyshmily.beans.autowire.Person"
+          p:name="Tom" p:address-ref="address" depends-on="car"></bean>
+
+
+</beans>

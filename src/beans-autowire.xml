@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="address" class="com.hcyshmily.beans.autowire.Address"
+    p:city="Beijing" p:street="HuiLonogGuan"></bean>
+    <bean id="address2" class="com.hcyshmily.beans.autowire.Address"
+    p:city="DaLian" p:street="ZhongShan"></bean>
+
+    <bean id="car" class="com.hcyshmily.beans.autowire.Car"
+          p:brand="Audi" p:price="300000"></bean>
+
+<!--    <bean id="person" class="com.hcyshmily.beans.autowire.Person"
+          p:name="Tom" p:address-ref="address" p:car-ref="car"></bean>-->
+
+    <!--
+    自动装配
+    byName
+    bean中属性的名字,和其他配置的 bean的名字一样,
+    如果把id="address" 改为 id="address2"  就会失败, address2 和 Person类中的 属性 address 名称不对应!
+    如果此时吧 Person类中的 address 属性名改为 address就ok
+
+    byType
+    根据bean的类型和当前bean的类型进行自动装配
+    如果有2个或者更多的相同的类型,会抛出异常, 因为无法确定用哪一个
+
+    配置了自动装配,就必须为当前bean的所有引用属性都配置自动装配.
+    实际引用时,很少用自动装配
+
+    但是在整合框架的时候,会用的稍微多些
+    -->
+<!--    <bean id="person" class="com.hcyshmily.beans.autowire.Person"
+          p:name="Tom" autowire="byName"></bean>-->
+        <bean id="person" class="com.hcyshmily.beans.autowire.Person"
+          p:name="Tom" autowire="byName"></bean>
+
+</beans>
