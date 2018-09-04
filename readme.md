@@ -16,6 +16,26 @@ Inversion of Control
 
 ### bean之间的关系: 继承, 依赖
 
+### Beand 作用域 
+* singleton, 单例(默认), 初始化容器就会创建实例, 永远返回相同的bean 
+* prototype, 原型,初始化时不会创建实例, 在被获取时才会创建,每次创建的是不同的bean
+* WEB环境作用域
+
+### 使用外部属性文件
+* 系统部署的细节信息, 比如连接数据源的信息
+1.  PropertyPlaceholderConfigurer 的 BeanFactory后置处理器,这个处理器允许用户将Bean配置的部分内容移到[属性文件]中!
+
+### Spel
+* Spring 表达式语言(简称 SpEL): 是一个支持运行时检查和操作对象的强大表达式语言,用 #{...} 表达
+1. 简单表示 <property name="count" value="#{5}"> <property name="name" value="#{'lxh'}">
+2. 引用 Bean, 属性(这个普通操作做不到)和方法
+3. SpEL支持的运算符号,算术,逻辑运算, if else, 正则
+4. 调用静态方法和获取静态属性
+
+### IOC 容器中Bean的生命周期方法
+1. 普通的生命周期， init, destroy
+2. bean后置处理器还可以配置更详细的， before init，和 after init
+
 # DI
 Dependency Injection 依赖注入
 *   即组件以一些预先定义好的方式(如 Setter方法) 接收来自容器资源注入

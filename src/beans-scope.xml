@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+        <!--
+        配置bean的作用域:
+        scope="singleton"  默认产生的是单例的,即每次返回的对象是同一个,在整个容器的生命周期内,只有这么一个,而且,在容器初始化就会创建
+        scope="prototype"  而原型则每次返回一个新的, 在容器初始化时,不会创建, 只有在获取的时候才会创建实例
+
+         -->
+    <bean id="car" class="com.hcyshmily.beans.autowire.Car" scope="prototype">
+        <property name="brand" value="Audi"></property>
+        <property name="price" value="300000"></property>
+    </bean>
+</beans>

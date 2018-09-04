@@ -1,15 +1,27 @@
-package com.hcyshmily.beans.autowire;
+package com.hcyshmily.beans.spel;
 
 public class Car {
     private String brand;
     private double price;
+
+    // 轮胎的周长
+    private double tyrePerimeter;
 
     @Override
     public String toString() {
         return "Car{" +
                 "brand='" + brand + '\'' +
                 ", price=" + price +
+                ", tyrePerimeter=" + tyrePerimeter +
                 '}';
+    }
+
+    public double getTyrePerimeter() {
+        return tyrePerimeter;
+    }
+
+    public void setTyrePerimeter(double tyrePerimeter) {
+        this.tyrePerimeter = tyrePerimeter;
     }
 
     public Car() {
