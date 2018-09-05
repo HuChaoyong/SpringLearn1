@@ -36,6 +36,18 @@ Inversion of Control
 1. 普通的生命周期， init, destroy
 2. bean后置处理器还可以配置更详细的， before init，和 after init
 
+### 通过工厂方法配置 Bean
+
+### 通过 Spring的 FactoryBean 来配置
+
+### 基于注解的方式
+1. 加上注解
+2. 在 xml中指定扫描的包(包和子包都会被 IOC容器管理)
+* resource-pattern="repository/*.class" //扫描指定位置的class
+* include-filter 子节点表示要包含的目标类
+* exlcude-filter 子节点表示要排除的目标类
+
+
 # DI
 Dependency Injection 依赖注入
 *   即组件以一些预先定义好的方式(如 Setter方法) 接收来自容器资源注入

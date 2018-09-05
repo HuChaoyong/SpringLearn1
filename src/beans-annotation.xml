@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 指定 Spring IOC扫描的包 -->
+
+    <!--
+    可以通过 resource-pattern 指定扫描的资源，
+    resource-pattern="repository/*.class"
+    -->
+
+<!--    <context:component-scan
+            base-package="com.hcyshmily.beans.annotation"
+            resource-pattern="repository/*.class">
+    </context:component-scan>-->
+
+    <context:component-scan base-package="com.hcyshmily.beans.annotation" use-default-filters="false">
+        <!--指定排除哪些指定表达式的组件-->
+        <!--<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>-->
+
+        <!--
+        include-filter  指定包含哪些表达式的组件，
+        使用 include-filter 时，要取消扫描filter的东西，在上一级配置 ： use-default-filters="false"
+        -->
+        <!--<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>-->
+
+
+        <!--
+        exclude-filter type="assignable"
+        除了 某个类的，其他的都可以, 父级的   use-default-filters="true" 设置
+        -->
+        <!--<context:exclude-filter type="assignable" expression="com.hcyshmily.beans.annotation.repository.UserRepository" />-->
+
+
+
+        <!--
+        只包含某个类的， 上级的 use-default-filters="false"
+        这里，只包含  com.hcyshmily.beans.annotation.repository.UserRepository  类
+        -->
+        <context:include-filter type="assignable" expression="com.hcyshmily.beans.annotation.repository.UserRepository" />
+    </context:component-scan>
+</beans>
