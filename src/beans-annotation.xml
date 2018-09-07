@@ -16,7 +16,7 @@
             resource-pattern="repository/*.class">
     </context:component-scan>-->
 
-    <context:component-scan base-package="com.hcyshmily.beans.annotation" use-default-filters="false">
+    <context:component-scan base-package="com.hcyshmily.beans.annotation">
         <!--指定排除哪些指定表达式的组件-->
         <!--<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>-->
 
@@ -39,6 +39,6 @@
         只包含某个类的， 上级的 use-default-filters="false"
         这里，只包含  com.hcyshmily.beans.annotation.repository.UserRepository  类
         -->
-        <context:include-filter type="assignable" expression="com.hcyshmily.beans.annotation.repository.UserRepository" />
+        <!--<context:include-filter type="assignable" expression="com.hcyshmily.beans.annotation.repository.UserRepository" />-->
     </context:component-scan>
 </beans>

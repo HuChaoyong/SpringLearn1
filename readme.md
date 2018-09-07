@@ -46,6 +46,9 @@ Inversion of Control
 * resource-pattern="repository/*.class" //扫描指定位置的class
 * include-filter 子节点表示要包含的目标类
 * exlcude-filter 子节点表示要排除的目标类
+* 在 IOC容器中存在多个类型兼容的Bean时，用两种方法、
+1. @Repository("userRepository") 申明Bean的时候，属性名或者字段名一致
+2. @Qualifier("userRepositoryImpl")  使用  Qualifier 指定调用的Bean的类
 
 
 # DI

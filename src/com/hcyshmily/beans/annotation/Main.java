@@ -20,7 +20,11 @@ public class Main {
 //        System.out.println(userService);
 
         // 这个的 id 是在 类里面指定的
-        UserRepository userRepository = (UserRepository) ctx.getBean("userRepository");
-        System.out.println(userRepository);
+//        UserRepository userRepository = (UserRepository) ctx.getBean("userRepository");
+//        System.out.println(userRepository);
+
+        UserController userController = (UserController) ctx.getBean("userController");
+        System.out.println(userController);
+        userController.execute();
     }
 }
