@@ -50,6 +50,19 @@ Inversion of Control
 1. @Repository("userRepository") 申明Bean的时候，属性名或者字段名一致
 2. @Qualifier("userRepositoryImpl")  使用  Qualifier 指定调用的Bean的类
 
+### Spring 4.0 新特性， 泛型依赖注入(如图)
+
+![Image text](./pictures/generic-di.png)
+
+
+## AOP
+![Image text](./pictures/AOP_explain.png)
+*  AOP可以解决的两个问题： ①代码混乱 ②代码分散 （动态代理可以解决【调用方法前插入代码】）
+* AOP的优点：
+1. 每个事物逻辑位于一个位置，代码不分散，便于维护和升级
+2. 业务模块更简洁，只包含核心业务代码 
+
+
 
 # DI
 Dependency Injection 依赖注入
