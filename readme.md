@@ -70,3 +70,39 @@ Dependency Injection 依赖注入
 
 
 
+# AOP
+### * 提取公共的切面,切点
+### * AspectJ, 
+*  加入 jar包 [AspectJ](http://www.java2s.com/Code/Jar/a/Downloadaspectjweaverjar.htm)
+*  配置文件中加入 AOP命名空间
+*  基于注解的方式
+####  ①配置文件中加入
+```xml
+<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+```
+#### ② 把横切关注点的代码,抽象到切面的类中.
+##### &emsp;A.切面首先是一个 IOC中的bean, 即加入@Component注解
+##### &emsp;B.切面还需要加入 @Aspect 注解
+
+#### ③ 在类中声明各种通知: 
+* @Before 前置通知
+* @After 后置通知
+* @AfterRunning 返回通知, 在方法返回结果后执行
+* @AfterThrowing 异常通知,在方法抛出异常之后
+* @Around 环绕通知,围绕着方法执行
+##### &emsp; i 声明一个方法
+##### &emsp; ii 在方法前加入 @Before 注解
+* @Before("execution(public int com.hcyshmily.aop.impl.ArithmeticCalculator.add(int, int))")
+>表示,前置通知, public 修饰的, 返回 int的, com.hcyshmily.aop.impl.ArithmeticCalculator 类的 add(int, int) 方法
+* 这里的 public 可以替换成 *, 则表示所有修饰类型的方法, 类也可以改成*, 表示所有类
+#### ④ 可以在在通知方法中声明一个类型为 JointPoint的参数,然后就能够获取访问连接的细节,比如方法名,参数...
+```java
+    @Before("execution(public int com.hcyshmily.aop.impl.ArithmeticCalculator.*(int, int))") // 这样就针对所有 (int, int) 参数的方法
+    public void beforeMethod(JoinPoint joinPoint) {
+        String methodName = joinPoint.getSignature().getName();
+        List<Object> args = Arrays.asList(joinPoint.getArgs());
+        System.out.println("The method `" + methodName + "` begins with " + args);
+    }
+```
+
+

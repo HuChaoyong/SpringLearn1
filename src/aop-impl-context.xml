@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:ccontext="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--<&#45;&#45;! 配置自动扫描的包 &ndash;&gt;-->
+
+    <ccontext:component-scan base-package="com.hcyshmily.aop.impl"></ccontext:component-scan>
+
+    <!--
+    使我们在切面里面声明的注解,起作用;
+    当调用的目标方法和注解声明的方法相匹配的时候, =>  AOP 会自动为方法所在的那个类,生成一个代理对象
+
+    使 AspectJ 注解起作用: 自动为匹配的类生成代理对象
+    -->
+    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+
+
+</beans>
