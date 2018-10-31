@@ -3,6 +3,7 @@ package com.hcyshmily.aop.impl;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -15,9 +16,21 @@ import java.util.List;
  *   2. 再声明为一个切面
  */
 
+@Order(2)
 @Aspect
 @Component
 public class LoggingAspect {
+
+    /**
+     * 定义一个声明切面表达式的方法;
+     *  一般的,该方法中不需要添入其他的代码
+     *
+     *  使用 @Pointcut 来声明切入点表达式
+     *
+     *  后面的其他通知直接使用方法名来引用当前的切入点表达式
+     */
+    @Pointcut("execution(public int com.hcyshmily.aop.impl.ArithmeticCalculator.*(int, int))")
+    public void declareJoinPointExpression() { }
 
     /**
      * 如果要达成做成生命周期的的切面, 需要指定是哪个方法,的哪个周期(执行前 | 执行后)
@@ -41,7 +54,7 @@ public class LoggingAspect {
      * 后置通知, 在目标方法执行后(无论有没有异常), 执行的通知
      * 这里是不能访问到执行结果的
      */
-    @After("execution(public int com.hcyshmily.aop.impl.ArithmeticCalculator.*(int, int))")
+    @After("declareJoinPointExpression()") // 这里使用的声明切面表达式的方法, 相当于通用的.
     public void afterMethod(JoinPoint joinPoint) {
         String methodName = joinPoint.getSignature().getName();
         System.out.println("The method `" + methodName + "` end ");

@@ -105,4 +105,6 @@ Dependency Injection 依赖注入
     }
 ```
 
+* 使用 @Order(number)  指定切面执行的优先级, number越小优先级越高
+
 
