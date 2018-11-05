@@ -108,3 +108,7 @@ Dependency Injection 依赖注入
 * 使用 @Order(number)  指定切面执行的优先级, number越小优先级越高
 
 
+# Spring 中的事务管理器
+* Spring从不同的事务管理api中抽象了一整套的事务机制,开发人员不必了解底层的事务API,就可以利用这些事务机制,有了这些事务机制, 事务管理代码就能独立于特定的事务技术.
+
+> mysql 不支持JDBC执行时返回验证,比如check约束,所以,我们要自己在 impl里面写
